@@ -65,6 +65,10 @@ void autonomous() {}
 void opcontrol() {
 
 	while (true) {
+		//Drive arcade mode
+		drive->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY),
+		 controller.getAnalog(ControllerAnalog::rightX));
+
 		pros::delay(20);
 	}
 }
