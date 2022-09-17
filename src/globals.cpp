@@ -6,15 +6,15 @@
 #include "okapi/impl/device/controller.hpp"
 #include "okapi/impl/device/motor/motorGroup.hpp"
 
-const QLength trackWidth = 0_in;
-const QLength wheelDiameter = 0_in;
+const QLength trackWidth = 40_cm;
+const QLength wheelDiameter = 12.9590697_in;
 
 /*PORTS*/
 //Drive
-const int backLeftPort = 1;
-const int backRightPort = 2;
-const int frontRightPort = 3;
-const int frontLeftPort = 4;
+const int backLeftPort = 20;
+const int backRightPort = 1;
+const int frontRightPort = 10;
+const int frontLeftPort = 11;
 
 Controller controller;
 
@@ -25,7 +25,7 @@ Motor backRight = Motor(backRightPort, true, okapi::AbstractMotor::gearset::gree
  okapi::AbstractMotor::encoderUnits::degrees);
 Motor frontLeft = Motor(frontLeftPort, false, okapi::AbstractMotor::gearset::green,
  okapi::AbstractMotor::encoderUnits::degrees);
-Motor frontRight = Motor(frontRightPort, false, okapi::AbstractMotor::gearset::green,
+Motor frontRight = Motor(frontRightPort, true, okapi::AbstractMotor::gearset::green,
  okapi::AbstractMotor::encoderUnits::degrees);
 
 MotorGroup leftDrive = {backLeft, frontLeft};
