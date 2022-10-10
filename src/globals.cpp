@@ -15,9 +15,13 @@ const int backLeftPort = 20;
 const int backRightPort = 1;
 const int frontRightPort = 10;
 const int frontLeftPort = 11;
+//Flywheel
+const int flyBackPort = 9;
+const int flyFrontPort = 12;
 
 Controller controller;
 
+/*Setup*/
 //Drivetrain
 Motor backLeft = Motor(backLeftPort, false, okapi::AbstractMotor::gearset::green,
  okapi::AbstractMotor::encoderUnits::degrees);
@@ -27,6 +31,7 @@ Motor frontLeft = Motor(frontLeftPort, false, okapi::AbstractMotor::gearset::gre
  okapi::AbstractMotor::encoderUnits::degrees);
 Motor frontRight = Motor(frontRightPort, true, okapi::AbstractMotor::gearset::green,
  okapi::AbstractMotor::encoderUnits::degrees);
+ 
 
 MotorGroup leftDrive = {backLeft, frontLeft};
 MotorGroup rightDrive = {backRight, frontRight};
@@ -35,3 +40,9 @@ std::shared_ptr<ChassisController> drive = ChassisControllerBuilder()
     .withMotors(leftDrive, rightDrive)
     .withDimensions(AbstractMotor::gearset::green, {{wheelDiameter, trackWidth}, imev5GreenTPR})
     .build();
+
+//Flywheel
+Motor flyBack = Motor(flyBackPort, true, okapi::AbstractMotor::gearset::blue,
+ okapi::AbstractMotor::encoderUnits::degrees);
+ Motor flyFront = Motor(flyFrontPort, true, okapi::AbstractMotor::gearset::blue,
+ okapi::AbstractMotor::encoderUnits::degrees);
