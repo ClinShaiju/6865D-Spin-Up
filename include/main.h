@@ -77,6 +77,8 @@ void opcontrol(void);
  */
 //#include <iostream>
 #include "globals.h"
+#include "slewFly.h"
+
 #endif
 
 #endif  // _PROS_MAIN_H_

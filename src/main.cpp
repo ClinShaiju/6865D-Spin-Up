@@ -64,41 +64,20 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	bool leftIsPressed = false;
-	bool toggle = false;
 	pros::screen::set_pen(COLOR_WHITE);
-	int i = 0;
 	while (true) {
 		//Drive arcade mode
 		drive->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY),
 		 controller.getAnalog(ControllerAnalog::rightX));
 
-		if (controller.getDigital(ControllerDigital::left)) {
-			if (!leftIsPressed) {
-				if (!toggle) {
-					flyBack.moveVelocity(420);
-					flyFront.moveVelocity(420);
-					toggle = true;
-				}
-				else {
-					flyBack.moveVoltage(0);
-					flyFront.moveVoltage(0);
-					toggle = false;
-				}
-				leftIsPressed = true;
-			}
-
-		}
-		else {
-			leftIsPressed = false;
-		}
+		flyToggle();
 
 		pros::lcd::print(0, "front:%3d",flyFront.getActualVelocity());
 		pros::lcd::print(1, "back:%3d:",flyBack.getActualVelocity());
 		pros::lcd::print(2, "front:%3d ",flyFront.getPower());
 		pros::lcd::print(3, "back:%3d",flyBack.getPower());
 
-		pros::delay(100);
+		pros::delay(20);
 		
 
 	}
