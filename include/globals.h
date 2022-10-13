@@ -6,3 +6,5 @@ extern std::shared_ptr<ChassisController> drive;
 
 extern Motor flyBack;
 extern Motor flyFront;
+
+extern Motor indexer;
