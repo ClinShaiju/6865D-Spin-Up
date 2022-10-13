@@ -1,35 +1,29 @@
 #include "main.h"
 
-bool leftIsPressed = false;
+bool flyPressed = false;
 bool toggle = false;
 const int flyRPM = 420;
 
 void flyToggle() {
-    //Toggle flywheel
+    //Hold flywheel
     if (controller.getDigital(ControllerDigital::left)) {
-        if (!leftIsPressed) {
-            if (!toggle) {
-                flyBack.moveVelocity(flyRPM);
-                flyFront.moveVelocity(flyRPM);
-                toggle = true;
-            }
-            else {
-                flyBack.moveVoltage(0);
-                flyFront.moveVoltage(0);
-                toggle = false;
-            }
-            leftIsPressed = true;
-        }
+        if (!flyPressed) {
+            flyBack.moveVelocity(flyRPM);
+            flyFront.moveVelocity(flyRPM);
+            flyPressed = true;
+        }   
     }
     else {
-        leftIsPressed = false;
+        flyFront.moveVoltage(0);
+        flyBack.moveVoltage(0);
+        flyPressed = false;
     }
 
     /*Test flywheel speeds*/
-    if (controller.getDigital(ControllerDigital::R1)) flyRPM = 600;
-    if (controller.getDigital(ControllerDigital::R2)) flyRPM = 500;
-    if (controller.getDigital(ControllerDigital::L1)) flyRPM = 420;
-    
+    if (controller.getDigital(ControllerDigital::left)) flyRPM = 600;
+    if (controller.getDigital(ControllerDigital::up)) flyRPM = 500;
+    if (controller.getDigital(ControllerDigital::right)) flyRPM = 420;
+
 }
 
 /*
