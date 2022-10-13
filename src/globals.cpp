@@ -6,6 +6,9 @@
 #include "okapi/impl/device/controller.hpp"
 #include "okapi/impl/device/motor/motorGroup.hpp"
 
+/*GLOBAL VARS*/
+bool modKey = false;
+
 /*DRIVE MEASUREMENTS*/
 //Drive
 const QLength trackWidth = 40_cm;
@@ -61,3 +64,8 @@ Motor flyFront = Motor(flyFrontPort, true, okapi::AbstractMotor::gearset::blue,
 //Indexer
 Motor indexer = Motor(indexerPort, false, okapi::AbstractMotor::gearset::blue,
     okapi::AbstractMotor::encoderUnits::degrees);
+
+/*GLOBAL FUNCTIONS*/
+void isModKey() {
+    modKey = controller.getDigital(ControllerDigital::R2);
+}
