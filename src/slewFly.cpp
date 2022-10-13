@@ -1,7 +1,7 @@
 #include "main.h"
 
 bool flyPressed = false;
-bool flyToggle = false;
+bool flyToggled = false;
 int flyRPM = 420;
 
 void flyToggle() {
@@ -10,15 +10,15 @@ void flyToggle() {
     if (modKey) {
         if (flyButton) {
             if (!flyPressed) {
-                if (!flyToggle) {
+                if (!flyToggled) {
                     flyBack.moveVelocity(flyRPM);
                     flyFront.moveVelocity(flyRPM);
-                    flyToggle = true;
+                    flyToggled = true;
                 }
                 else {
                     flyBack.moveVoltage(0);
                     flyFront.moveVoltage(0);
-                    flyToggle = false;
+                    flyToggled = false;
                 }
                 flyPressed = true;
             }
@@ -29,8 +29,8 @@ void flyToggle() {
     }
     //If modkey off, hold for flywheel
     else {
-        if (flyToggle) {
-            if (flyButton) flyToggle = false;
+        if (flyToggled) {
+            if (flyButton) flyToggled = false;
         }
         else if (flyButton) {
             if (!flyPressed) {

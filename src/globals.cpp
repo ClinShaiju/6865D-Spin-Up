@@ -31,6 +31,7 @@ const int indexerPort = 7;
 
 
 /*SETUP*/
+Controller controller;
 //Drivetrain
 Motor backLeft = Motor(backLeftPort, false, okapi::AbstractMotor::gearset::green,
  okapi::AbstractMotor::encoderUnits::degrees);
