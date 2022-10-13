@@ -78,6 +78,7 @@ void opcontrol(void);
 //#include <iostream>
 #include "globals.h"
 #include "slewFly.h"
+#include "subsystems.h"
 
 #endif
 

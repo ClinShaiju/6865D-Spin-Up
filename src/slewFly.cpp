@@ -2,13 +2,15 @@
 
 bool leftIsPressed = false;
 bool toggle = false;
-int currentSlew = 0;
+const int flyRPM = 420;
 
 void flyToggle() {
+    //Toggle flywheel
     if (controller.getDigital(ControllerDigital::left)) {
         if (!leftIsPressed) {
             if (!toggle) {
-                slew(420, 2);
+                flyBack.moveVelocity(flyRPM);
+                flyFront.moveVelocity(flyRPM);
                 toggle = true;
             }
             else {
@@ -18,13 +20,19 @@ void flyToggle() {
             }
             leftIsPressed = true;
         }
-
     }
     else {
         leftIsPressed = false;
     }
+
+    /*Test flywheel speeds*/
+    if (controller.getDigital(ControllerDigital::R1)) flyRPM = 600;
+    if (controller.getDigital(ControllerDigital::R2)) flyRPM = 500;
+    if (controller.getDigital(ControllerDigital::L1)) flyRPM = 420;
+    
 }
 
+/*
 void slew(int vel, int time) {
     while (currentSlew < vel) {
         flyBack.moveVelocity(currentSlew);
@@ -34,4 +42,4 @@ void slew(int vel, int time) {
 
         pros::delay(100);
     }
-}
+}*/
