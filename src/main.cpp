@@ -66,12 +66,17 @@ void autonomous() {}
 void opcontrol() {
 	pros::screen::set_pen(COLOR_WHITE);
 	while (true) {
+		//Checks if the mod key if active for driver
+		isModKey();
+
 		//Drive arcade mode
 		drive->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY),
 		 controller.getAnalog(ControllerAnalog::rightX));
 
+		//Fywheel toggle
 		flyToggle();
-
+		
+		//Print flywheel motor values
 		pros::lcd::print(0, "front:%3d",flyFront.getActualVelocity());
 		pros::lcd::print(1, "back:%3d:",flyBack.getActualVelocity());
 		pros::lcd::print(2, "front:%3d ",flyFront.getPower());
