@@ -1,9 +1,13 @@
 #include "main.h"
+#include "okapi/impl/util/timer.hpp"
+#include "sylib/system.hpp"
+#include <type_traits>
+
 
 /**
  * A callback function for LLEMU's center button.
  *
- * When this callback is fired, it will toggle line 2 of the LCD text between
+ * When this callback is fired, it will toggle line 2 of the LCD text between  
  * "I was pressed!" and nothing.
  */
 void on_center_button() {
@@ -16,6 +20,8 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	sylib::initialize();
+
 	pros::lcd::initialize();
 }
 
@@ -48,7 +54,31 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	//drive->setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+
+	drive->moveDistance(1_in);
+	intake.moveVelocity(-50);
+	pros::delay(1000);
+	drive->moveDistance(-1_in);
+
+	drive->turnAngle(90_deg);
+	targetRPM = globalFlywheelRPM / 7;
+	pros::delay(2000);
+	indexer.
+	
+
+	// drive->turnAngle(90_deg);
+
+
+	// drive->setMaxVelocity(100);
+	// drive->moveDistance(2_ft);
+	// drive->turnAngle(-90_deg);
+	// drive->moveDistance(2_ft);
+	// drive->turnAngle(90_deg);
+	// drive->moveDistance(4_ft);
+
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -64,26 +94,33 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::screen::set_pen(COLOR_WHITE);
+	//drive->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
+	drive->setMaxVelocity(200);
+	uint32_t clock = sylib::millis();
+	Timer Timer_opcontrol = Timer();
 	while (true) {
 		//Checks if the mod key if active for driver
 		isModKey();
+		flyPID();
+		flyToggle();
+		index();
+		runIntake();
+		endgameExpansion(Timer_opcontrol.millis());
+        autoAim(currentAlliancePosition);
+		
+
+		double leftY = exponential(controller.getAnalog(ControllerAnalog::leftY));
+		double rightX = exponential(controller.getAnalog(ControllerAnalog::rightX));
 
 		//Drive arcade mode
-		drive->getModel()->arcade(controller.getAnalog(ControllerAnalog::leftY),
-		 controller.getAnalog(ControllerAnalog::rightX));
+		drive->getModel()->arcade(leftY,rightX);
+		//driveOdom.updateState();
+		std::cout << getVelocity() * 7 << "," << flyBack.get_applied_voltage()/10 << "," << targetRPM * 7 << "," << motorPower << std::endl;
 
-		//Fywheel toggle
-		flyToggle();
+		//output info for graphing
 		
-		//Print flywheel motor values
-		pros::lcd::print(0, "front:%3d",flyFront.getActualVelocity());
-		pros::lcd::print(1, "back:%3d:",flyBack.getActualVelocity());
-		pros::lcd::print(2, "front:%3d ",flyFront.getPower());
-		pros::lcd::print(3, "back:%3d",flyBack.getPower());
+		//Print flywheel motor value
 
-		pros::delay(20);
-		
-
+		sylib::delay_until(&clock, 10);
 	}
 }

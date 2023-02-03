@@ -42,6 +42,8 @@
 #include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 
+#include "sylib/sylib.hpp"
+
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
  * Motor, you can use the namespace with the following commented out line.
@@ -76,9 +78,17 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 //#include <iostream>
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "globals.h"
-#include "slewFly.h"
 #include "subsystems.h"
+
+#include "flywheel/flywheelImplementation.hpp"
+#include "flywheel/flywheelPID.hpp"
+#include "flywheel/emaFilter.hpp"
+
+
+#include "odometry/ThreeEncoderOdom.hpp"
 
 #endif
 
