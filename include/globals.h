@@ -1,6 +1,6 @@
 #include "main.h"
 #include "flywheel/flywheelImplementation.hpp"
-#include "odometry/threeEncoderOdom.hpp"
+#include "odometry/twoEncoderOdom.hpp"
 /*GLOBAL VARS*/
 extern bool modKey;
 extern int globalFlywheelRPM;
@@ -14,7 +14,7 @@ extern alliancePosition currentAlliancePosition;
 extern Controller controller;
 
 extern std::shared_ptr<OdomChassisController> drive;
-extern ThreeEncoderOdom driveOdom;
+extern TwoEncoderOdom driveOdom;
 extern std::vector<pros::ADIEncoder> encoderList;
 
 extern sylib::Motor flyFront;

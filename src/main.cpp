@@ -115,7 +115,7 @@ void opcontrol() {
 		//Drive arcade mode
 		drive->getModel()->arcade(leftY,rightX);
 		//driveOdom.updateState();
-		std::cout << getVelocity() * 7 << "," << flyBack.get_applied_voltage()/10 << "," << targetRPM * 7 << "," << motorPower << std::endl;
+		std::cout << driveOdom.getHeading() << std::endl;
 
 		//output info for graphing
 		

@@ -37,6 +37,10 @@ const int flyFrontPort = 12;
 const int indexerPort = 13;
 //Intake
 const int intakePort = 14;
+//Sensors
+const int inertialPort = 10;
+
+pros::IMU inertial = pros::IMU(inertialPort);
 
 
 /*SETUP*/
@@ -54,13 +58,14 @@ Motor frontRight = Motor(frontRightPort, false, okapi::AbstractMotor::gearset::g
 MotorGroup leftDrive = {backLeft, frontLeft};
 MotorGroup rightDrive = {backRight, frontRight};
 
-pros::ADIEncoder leftEncoder('A', 'B', true);
-pros::ADIEncoder rightEncoder('C', 'D', true);
+pros::ADIEncoder sideEncoder('A', 'B', true);
+// pros::ADIEncoder rightEncoder('C', 'D', true);
 pros::ADIEncoder middleEncoder('E', 'F', false);
 
-std::vector<pros::ADIEncoder> encoderList = {leftEncoder, rightEncoder, middleEncoder};
+std::vector<pros::ADIEncoder> encoderList = {sideEncoder, middleEncoder};
+std::vector<pros::IMU> inertialList = {inertial};
 
-ThreeEncoderOdom driveOdom(0, 0, 2.75, 4.125, encoderList);
+TwoEncoderOdom driveOdom(0.0, 0.0, 2.75, 4.125, encoderList, inertialList);
 
 
 /*

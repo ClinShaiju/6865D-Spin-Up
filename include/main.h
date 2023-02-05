@@ -88,7 +88,7 @@ void opcontrol(void);
 #include "flywheel/emaFilter.hpp"
 
 
-#include "odometry/ThreeEncoderOdom.hpp"
+#include "odometry/TwoEncoderOdom.hpp"
 
 #endif
 
